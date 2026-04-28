@@ -48,27 +48,38 @@ function createMissingOriginResponse() {
   );
 }
 
-export default {
-  async fetch(request: Request) {
-    const backendOrigin = getBackendOrigin();
-
-    if (!backendOrigin) {
-      return createMissingOriginResponse();
-    }
-
-    const upstreamUrl = buildUpstreamUrl(request, backendOrigin);
-    const headers = cloneRequestHeaders(request);
-    const requestInit: RequestInit & { duplex?: 'half' } = {
-      method: request.method,
-      headers,
-      redirect: 'manual',
-    };
-
-    if (request.method !== 'GET' && request.method !== 'HEAD') {
-      requestInit.body = request.body;
-      requestInit.duplex = 'half';
-    }
-
-    return fetch(upstreamUrl, requestInit);
-  },
+export const config = {
+  runtime: 'nodejs',
 };
+
+export default async function handler(request: Request) {
+  const backendOrigin = getBackendOrigin();
+
+  if (!backendOrigin) {
+    return createMissingOriginResponse();
+  }
+
+  const upstreamUrl = buildUpstreamUrl(request, backendOrigin);
+  const headers = cloneRequestHeaders(request);
+  const requestInit: RequestInit & { duplex?: 'half' } = {
+    method: request.method,
+    headers,
+    redirect: 'manual',
+  };
+
+  if (request.method !== 'GET' && request.method !== 'HEAD') {
+    requestInit.body = request.body;
+    requestInit.duplex = 'half';
+  }
+
+  const upstreamResponse = await fetch(upstreamUrl, requestInit);
+  const responseHeaders = new Headers(upstreamResponse.headers);
+
+  responseHeaders.set('x-proxy-upstream-url', upstreamUrl.toString());
+
+  return new Response(upstreamResponse.body, {
+    status: upstreamResponse.status,
+    statusText: upstreamResponse.statusText,
+    headers: responseHeaders,
+  });
+}
