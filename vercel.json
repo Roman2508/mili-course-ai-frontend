@@ -1,6 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    {
+      "source": "/auth/:path*",
+      "destination": "https://mili-course-ai-backend.onrender.com/auth/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://mili-course-ai-backend.onrender.com/:path*"
+    },
+    {
+      "source": "/((?!api/|auth/).*)",
+      "destination": "/index.html"
+    }
   ]
 }

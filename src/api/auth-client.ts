@@ -11,7 +11,7 @@ export const authClient = createAuthClient({
         basePath: betterAuthBasePath,
       }
     : {
-        basePath: `${apiBaseUrl}${betterAuthBasePath}`,
+        basePath: betterAuthBasePath,
       }),
   fetchOptions: {
     credentials: 'include',
