@@ -27,7 +27,7 @@ function RootRedirect() {
     return (
       <LoadingState
         title="Відновлюємо сесію"
-        description="Перевіряємо поточну Better Auth сесію."
+        description="Перевіряємо поточну сесію."
       />
     );
   }

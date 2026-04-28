@@ -10,7 +10,7 @@ export default function LoginPage() {
     return (
       <div className="min-h-screen px-4 py-4 sm:px-5 relative">
         <div className="mx-auto max-w-[1400px] py-4 lg:py-8 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <LoadingState title="Відновлюємо сесію" description="Перевіряємо, чи є активна Better Auth сесія." />
+          <LoadingState title="Відновлюємо сесію" description="Перевіряємо, чи є активна сесія." />
         </div>
       </div>
     )

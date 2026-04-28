@@ -92,7 +92,15 @@ export async function login(credentials: AuthCredentials) {
       );
     }
 
-    return normalizeUserSession(result.data.user as BetterAuthUser);
+    const session = await getCurrentSession();
+
+    if (!session) {
+      throw new ApiError(
+        'Login succeeded, but the browser did not persist the auth session cookie.',
+      );
+    }
+
+    return session;
   } catch (error) {
     return resolveAuthError(error, 'Не вдалося виконати вхід.');
   }
@@ -114,7 +122,15 @@ export async function register(values: RegisterValues) {
       );
     }
 
-    return normalizeUserSession(result.data.user as BetterAuthUser);
+    const session = await getCurrentSession();
+
+    if (!session) {
+      throw new ApiError(
+        'Registration succeeded, but the browser did not persist the auth session cookie.',
+      );
+    }
+
+    return session;
   } catch (error) {
     return resolveAuthError(error, 'Не вдалося створити акаунт.');
   }
