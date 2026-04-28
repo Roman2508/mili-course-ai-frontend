@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #17212d;
+  background-color: #f2efe8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(183, 133, 45, 0.13), transparent 28%),
+    radial-gradient(circle at top right, rgba(76, 107, 77, 0.14), transparent 24%),
+    linear-gradient(180deg, #f7f4ed 0%, #f2efe8 100%);
+  color: #17212d;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(183, 133, 45, 0.22);
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight text-ink;
+  }
+
+  p {
+    @apply leading-7 text-slate;
+  }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer components {
+  .app-panel {
+    @apply rounded-[28px] border border-white/70 bg-white/80 shadow-panel backdrop-blur;
+  }
+
+  .app-grid-background {
+    background-size: 26px 26px;
+    background-image:
+      linear-gradient(rgba(23, 33, 45, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 33, 45, 0.035) 1px, transparent 1px);
+  }
+}
